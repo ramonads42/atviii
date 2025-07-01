@@ -5,30 +5,26 @@ import Servico from '../../modelo/servico';
 type Props = {
     tema: string;
     seletorView: (novaTela: string, evento?: React.MouseEvent | React.FormEvent) => void;
-    servico: Servico; // O serviço a ser excluído será passado via props
-    excluirServico: (nomeServico: string) => void; // Função de exclusão do service
-    atualizarDados: () => void; // Para notificar o Roteador sobre a mudança
+    servico: Servico; 
+    excluirServico: (nomeServico: string) => void; 
+    atualizarDados: () => void; 
 };
 
 export default function ConfirmacaoExclusaoServico(props: Props) {
     const handleExcluir = (event: React.MouseEvent) => {
         event.preventDefault();
         if (!props.servico) {
-            // Em vez de alert(), usar um feedback na tela
             console.warn("Nenhum serviço selecionado para exclusão.");
             return;
         }
 
         const nomeServico = props.servico.getNome;
 
-        // Chamada ao método do EmpresaService
         props.excluirServico(nomeServico);
 
-        // Notificar o Roteador para atualizar os dados globais
         props.atualizarDados();
 
-        // alert(`Serviço "${nomeServico}" excluído com sucesso!`); // Substituir por feedback na UI
-        props.seletorView('Serviços', event); // Voltar para a lista de serviços
+        props.seletorView('Serviços', event); 
     };
 
     const { tema, seletorView, servico } = props;

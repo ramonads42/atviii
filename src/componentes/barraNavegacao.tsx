@@ -1,20 +1,16 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
-// DEFINE O TIPO DAS PROPS AQUI
 type Props = {
     tema: string,
     botoes: string[],
     seletorView: (novaTela: string, evento?: React.MouseEvent | React.FormEvent) => void
 }
 
-// ATRIBUI O TIPO ÀS PROPS DA FUNÇÃO
 export default function BarraNavegacao(props: Props) { //
 
     const gerarListaBotoes = () => {
-        // Acesso a props.botoes diretamente, não precisa de 'this'
         if (props.botoes.length <= 0) {
             return <></>
         } else {

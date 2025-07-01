@@ -41,7 +41,7 @@ export default function RelatorioProdutosServicosMaisConsumidos(props: Props) {
                     </thead>
                     <tbody>
                         {relatorio.map((item, index) => (
-                            <tr key={index}> {/* Usar index como key é aceitável se a lista não muda de ordem */}
+                            <tr key={index}> 
                                 <td>{item.tipo}</td>
                                 <td>{item.nome}</td>
                                 <td>{item.quantidade}</td>

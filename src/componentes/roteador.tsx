@@ -1,43 +1,35 @@
 import React, { useState, useEffect } from "react";
 import BarraNavegacao from "./barraNavegacao";
 
-// Importações dos modelos de negócio (assumindo que estão na raiz do projeto)
 import Cliente from "../modelo/cliente";
 import Produto from "../modelo/produto";
 import Servico from "../modelo/servico";
 import Pet from "../modelo/pet";
 
-// Importações do serviço da empresa
 import empresaService from "../servicos/EmpresaService";
 
-// Componentes do Cliente
 import ListaClientes from "./clientes/listaCliente";
 import FormularioCadastroCliente from "./clientes/formularioCadastroCliente";
 import FormularioAtualizacaoCliente from "./clientes/formularioAtualizacaoCliente";
 import ConfirmacaoExclusaoCliente from "./clientes/confirmacaoExclusaoCliente";
 
-// Componentes de Pets
 import FormularioCadastroPet from "./pets/FormularioCadastroPet";
 import FormularioAtualizacaoPet from "./pets/FormularioAtualizacaoPet";
 import ConfirmacaoExclusaoPet from "./pets/ConfirmacaoExclusaoPet";
-import ListaPets from "./pets/ListaPets"; // Caminho corrigido
+import ListaPets from "./pets/ListaPets"; 
 
-// Componentes de Produtos
 import ListaProdutos from "./produtos/ListaProdutos";
 import FormularioCadastroProduto from "./produtos/FormularioCadastroProduto";
 import FormularioAtualizacaoProduto from "./produtos/FormularioAtualizacaoProduto";
 import ConfirmacaoExclusaoProduto from "./produtos/ConfirmacaoExclusaoProduto";
 
-// Componentes de Serviços
 import ListaServicos from "./servicos/ListaServicos";
 import FormularioCadastroServico from "./servicos/FormularioCadastroServico";
 import FormularioAtualizacaoServico from "./servicos/FormularioAtualizacaoServico";
 import ConfirmacaoExclusaoServico from "./servicos/ConfirmacaoExclusaoServico";
 
-// Componentes de Consumo
-import RegistroConsumo from "./relatorios/RegistroConsumo"; // Caminho corrigido
+import RegistroConsumo from "./relatorios/RegistroConsumo"; 
 
-// Componentes de Relatórios
 import RelatorioClientesMaisConsumiram from "./relatorios/RelatorioClientesMaisConsumiram";
 import RelatorioProdutosServicosMaisConsumidos from "./relatorios/RelatorioProdutosServicosMaisConsumidos";
 import RelatorioConsumoPorTipoRaca from "./relatorios/RelatorioConsumoPorTipoRaca";
@@ -46,42 +38,37 @@ import RelatorioConsumoPorTipo from "./relatorios/RelatorioConsumoPorTipo";
 
 
 export default function Roteador() {
-    // Definindo estados com useState
     const [tela, setTela] = useState<string>('Clientes');
     const [itemSelecionado, setItemSelecionado] = useState<Cliente | Pet | Produto | Servico | any>(undefined);
     const [clientes, setClientes] = useState<Cliente[]>([]);
     const [produtos, setProdutos] = useState<Produto[]>([]);
     const [servicos, setServicos] = useState<Servico[]>([]);
 
-    // Função para atualizar os dados do estado a partir do EmpresaService
     const atualizarDados = () => {
         setClientes(empresaService.getClientes());
         setProdutos(empresaService.getProdutos());
         setServicos(empresaService.getServicos());
     };
 
-    // useEffect para carregar dados iniciais, similar ao componentDidMount
-    // Rodará apenas uma vez após a montagem do componente
+
     useEffect(() => {
         atualizarDados();
-    }, []); // Array de dependências vazio
+    }, []); 
 
-    // useEffect para atualizar dados quando a tela principal muda, se necessário
-    // Por exemplo, ao voltar para uma lista após um cadastro
+
     useEffect(() => {
-        // Se a tela mudou para uma lista, force uma atualização dos dados
         if (['Clientes', 'Pets', 'Produtos', 'Serviços', 'Relatórios'].includes(tela)) {
             atualizarDados();
         }
     }, [tela]);
 
 
-    // Funções de seleção de tela (passadas para BarraNavegacao e botões)
+
     const selecionarView = (novaTela: string, evento?: React.MouseEvent | React.FormEvent) => {
         if (evento) evento.preventDefault();
         console.log(novaTela);
         setTela(novaTela);
-        setItemSelecionado(undefined); // Limpa o item selecionado ao mudar de tela principal
+        setItemSelecionado(undefined); 
     };
 
     const selecionarViewComItem = (novaTela: string, item: any, evento?: React.MouseEvent | React.FormEvent) => {
@@ -91,12 +78,10 @@ export default function Roteador() {
         setItemSelecionado(item);
     };
 
-    // Renderização condicional das telas
     let barraNavegacao = <BarraNavegacao seletorView={selecionarView} tema="#e3f2fd" botoes={['Clientes', 'Pets', 'Produtos', 'Serviços', 'Consumo', 'Relatórios']} />;
     let conteudo;
 
     switch (tela) {
-        // Clientes
         case 'Clientes':
             conteudo = <ListaClientes
                 tema="#e3f2fd"
@@ -106,8 +91,8 @@ export default function Roteador() {
                 atualizarDados={atualizarDados}
             />;
             break;
-        case 'Cadastros': // Mantendo o botão "Cadastros" do seu pré-projeto como entrada para cadastro de clientes
-        case 'Cadastrar Cliente': // Adicionando uma rota mais específica se necessário
+        case 'Cadastros': 
+        case 'Cadastrar Cliente': 
             conteudo = <FormularioCadastroCliente
                 tema="#e3f2fd"
                 seletorView={selecionarView}

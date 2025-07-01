@@ -25,7 +25,6 @@ export default function FormularioCadastroServico(props: Props) {
         const valorNumerico = parseFloat(valor);
 
         if (!nome || isNaN(valorNumerico) || valorNumerico < 0) {
-            // Em vez de alert(), usaremos um feedback na tela se for o caso
             alert("Por favor, preencha o nome e um valor numérico válido para o serviço.");
             return;
         }

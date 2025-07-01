@@ -12,7 +12,7 @@ type Props = {
 
 type State = {
     nome: string;
-    valor: string; // Manter como string para input, converter para number ao salvar
+    valor: string; 
     descricao: string;
 };
 
